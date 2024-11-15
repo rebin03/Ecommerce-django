@@ -1,0 +1,58 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django specific
+db.sqlite3
+*.log
+
+# Environment variables
+.env
+
+# Django static and media files
+/staticfiles/
+/media/
+
+# Virtual environment
+venv/
+env/
+
+# IDE specific
+.vscode/
+.idea/
+*.swp
+
+# Node modules (if using Node for frontend)
+node_modules/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Test and coverage results
+.pytest_cache/
+.coverage
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# macOS specific files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+*.old
+*.orig
+
+# Other config files
+*.log
+*.pot
