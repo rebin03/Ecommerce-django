@@ -13,6 +13,7 @@ db.sqlite3
 # Django static and media files
 /staticfiles/
 /media/
+settings.py
 
 # Virtual environment
 venv/
