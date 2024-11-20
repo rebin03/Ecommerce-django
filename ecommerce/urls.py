@@ -21,4 +21,5 @@ from store import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.SignUpView.as_view(), name='signup'),
+    path('verify/email/', views.VerifyEmailView.as_view(), name='verify-email'),
 ]
