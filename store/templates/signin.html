@@ -6,19 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Verify your Email</h2>
-
-    {% if messages %}
-        {% for m in messages %}
-        {{m}}
-        {% endfor %}
-    {% endif %}
-    
+    <h1>Signin</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <label for="">Enter OTP</label>
-        <input type="text" name="otp">
-        <button type="submit">Verify</button>
+        {{form}}
+        <button type="submit">Signin</button>
     </form>
 </body>
 </html>

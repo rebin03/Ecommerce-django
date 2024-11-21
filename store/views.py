@@ -1,23 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from store.forms import SignUpForm
+from store.forms import SignUpForm, LoginForm
+from store.models import User
 from django.core.mail import send_mail
 from twilio.rest import Client
-from store.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-def send_otp_phone(otp):
-    
-    account_sid = ''
-    auth_token = ''
-    client = Client(account_sid, auth_token)
-    message = client.messages.create(
-        from_='+15633629763',
-        body=otp,
-        to='+919895296266'
-    )
-    print(message.sid)
+
 
 def send_otp_email(user):
     
@@ -81,12 +73,51 @@ class VerifyEmailView(View):
         
         otp = request.POST.get('otp')
         
-        user_obj = User.objects.get(otp=otp)
+        try:
+            user_obj = User.objects.get(otp=otp)
         
-        user_obj.is_active = True
-        user_obj.is_verified = True
-        user_obj.otp = None
+            user_obj.is_active = True
+            user_obj.is_verified = True
+            user_obj.otp = None
+            
+            user_obj.save()
+            return redirect('signup')
         
-        user_obj.save()
+        except:
+            
+            messages.error(request, 'Invalid OTP')
+            
+            return render(request, self.template_name)
         
-        return redirect('signup')
+        
+class SignInView(View):
+    
+    template_name = 'signin.html'
+    form_class = LoginForm
+    
+    def get(self, request, *args, **kwargs):
+        
+        form = self.form_class()
+        
+        return render(request, self.template_name, {'form':form})
+    
+    def post(self, request, *args, **kwargs):
+        
+        form_data = request.POST
+        form = self.form_class(form_data)
+        
+        if form.is_valid():
+            
+            uname = form.cleaned_data.get('username')
+            pwd = form.cleaned_data.get('password')
+            
+            user_obj = authenticate(request, username=uname, password=pwd)
+            
+
+            
+            if user_obj:
+                
+                login(request, user_obj)
+                return render(request, 'index.html')
+            
+        return render(request, self.template_name, {'form':form})

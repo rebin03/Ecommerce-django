@@ -8,12 +8,12 @@ from random import randint
 class User(AbstractUser):
     
     is_verified = models.BooleanField(default=False)
-    otp = models.CharField(max_length=5, null=True, blank=True)
+    otp = models.CharField(max_length=50, null=True, blank=True)
     phone = models.CharField(max_length=10, null=True)
     
     def generate_otp(self):
         
-        self.otp = str(randint(1000,9999))
+        self.otp = str(randint(1000,9999)) + str(self.id)
         self.save()
 
 
