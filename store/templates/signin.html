@@ -3,14 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign In</title>
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .signin-container {
+            max-width: 500px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .signin-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Signin</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Signin</button>
-    </form>
+    <div class="signin-container">
+        <h1>Sign In</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+        <div class="text-center mt-3">
+            <p class="text-muted">
+                Don't have an account? 
+                <a href="{% url 'signup' %}" class="text-decoration-none">Sign up</a>
+            </p>
+        </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

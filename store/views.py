@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from store.forms import SignUpForm, LoginForm
-from store.models import User
+from store.models import Product, User
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.contrib import messages
@@ -118,6 +118,37 @@ class SignInView(View):
             if user_obj:
                 
                 login(request, user_obj)
-                return render(request, 'index.html')
+                return redirect('product-list')
             
         return render(request, self.template_name, {'form':form})
+    
+    
+class ProductListView(View):
+    
+    template_name = 'index.html'
+    
+    def get(self, request, *args, **kwargs):
+        
+        qs = Product.objects.all()
+        
+        context = {
+            'products': qs
+        }
+        
+        return render(request, self.template_name, context)
+    
+    
+class ProductDetailView(View):
+    
+    template_name = 'product_detail.html'
+    
+    def get(self, request, *args, **kwargs):
+        
+        id = kwargs.get('pk')
+        product = Product.objects.get(id=id)
+        
+        context = {
+            'product':product
+        }
+
+        return render(request, self.template_name, context)
