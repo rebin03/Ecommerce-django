@@ -125,6 +125,8 @@
 </div>
 <!-- Breadcrump end -->
 
+
+<!-- Detail section start -->
 <div class="bg-white">
     <div class="container mx-auto px-4 py-8">
       <div class="flex flex-wrap -mx-4">
@@ -206,7 +208,6 @@
           
           <form action="{% url 'add-to-cart' product.id %}" method="post">
             {% csrf_token %}
-  
             <div class="mb-4">
               <h3 class="text-lg font-semibold mb-2">Select Size:</h3>
               <div class="flex items-center mt-2">
@@ -242,10 +243,15 @@
                   Wishlist
               </button>
             </div>
-
           </form>
-  
 
+          <!-- product tags start -->
+          <div class="flex flex-wrap gap-2 pe-4 max-w-sm mt-10 text-sm">
+            {% for tag in product.tag_objects.all %}
+            <span class="px-2 py-1 rounded bg-gray-200/50 text-gray-700 hover:bg-gray-200 cursor-default"># {{tag}}</span>
+            {% endfor %}
+          </div>
+          <!-- product tags end -->
   
           <!-- <div>
             <h3 class="text-lg font-semibold mb-2">Key Features:</h3>
@@ -266,6 +272,5 @@
           }
     </script>
 </div>
-
 <!-- Detail section end -->
 {% endblock %}

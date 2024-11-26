@@ -200,7 +200,7 @@
                 <div class="flex items-center gap-4">
                     <a
                         class="relative rounded-md bg-gray-100 p-2 text-gray-600 transition hover:text-gray-700"
-                        href="#"
+                        href="{% url 'cart-summary' %}"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -654,7 +654,7 @@
         }
     });
 
-
+    //Carousel
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.carousel-item');
         const dots = document.querySelectorAll('.dot');

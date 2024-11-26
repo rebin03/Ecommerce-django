@@ -215,6 +215,8 @@ class CartSummaryView(View):
         
         qs = BasketItem.objects.filter(basket_object=request.user.cart, is_order_placed=False)
 
+        print(qs)
+        
         context = {
             'basket_items':qs
         }

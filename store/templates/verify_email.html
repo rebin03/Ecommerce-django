@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <h2>Verify your Email</h2>
 
     {% if messages %}
         {% for m in messages %}
@@ -16,9 +17,25 @@
     
     <form action="" method="post">
         {% csrf_token %}
-        <label for="">Enter OTP</label>
+        <!-- <label for="">Enter OTP</label>
         <input type="text" name="otp">
-        <button type="submit">Verify</button>
+        <button type="submit">Verify</button> -->
+
+        <div class="flex flex-1 flex-col  justify-center space-y-5 max-w-md mx-auto mt-24">
+            <div class="flex flex-col space-y-2 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">Confirm OTP</h2>
+                <p class="text-md md:text-xl">
+                    Enter the OTP we just sent you.
+                </p>
+            </div>
+            <div class="flex flex-col max-w-md space-y-5">
+                <input type="text" placeholder="otp" name="otp"
+                      class="flex px-3 py-2 md:px-4 md:py-3 border-2 border-black rounded-lg font-medium placeholder:font-normal" />
+                <button type="submit" class="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black bg-black text-white">
+                    Confirm
+                </button>
+            </div>
+        </div>
     </form>
 </body>
 </html>
