@@ -6,8 +6,50 @@
     <title>Document</title>
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script> -->
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
 </head>
+<style>
+
+    *{
+        font-family: "Roboto", serif;
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    .carousel-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .carousel-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+    }
+
+    .carousel-item.active {
+        opacity: 1;
+    }
+    </style>
 <body>
 
     <!-- Navbar start -->
@@ -116,10 +158,10 @@
                 <nav aria-label="Global" class="hidden md:block">
                     <ul class="flex items-center gap-6 text-sm">
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Home</a>
+                            <a class="text-gray-500 transition hover:text-gray-500/75" href="{% url 'product-list' %}"> Home</a>
                         </li>
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Shop </a>
+                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#collection"> Shop </a>
                         </li>
                         <li>
                             <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Categories </a>
@@ -128,11 +170,32 @@
                             <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Wishlist </a>
                         </li>
                         <li>
-                            <a class="text-gray-500 transition hover:text-gray-500/75" href="#"> Contact </a>
+                            <a class="text-gray-500 transition hover:text-gray-500/75" href="{% url 'contact' %}"> Contact </a>
                         </li>
                     </ul>
                 </nav>
 
+                {% if not request.user.is_authenticated %}
+                <div class="flex items-center gap-4">
+                    <div class="sm:flex sm:gap-4">
+                      <a
+                        class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+                        href="{% url 'signin' %}"
+                      >
+                        Login
+                      </a>
+          
+                      <div class="hidden sm:flex">
+                        <a
+                          class="rounded-md bg-grey-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+                          href="#"
+                        >
+                          Register
+                        </a>
+                      </div>
+                    </div>
+                </div>
+                {% else %}
                 <!-- Action Buttons -->
                 <div class="flex items-center gap-4">
                     <a
@@ -196,7 +259,7 @@
                                 Settings
                             </a>
                             <a
-                                href="#"
+                                href="{% url 'signout' %}"
                                 class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             >
                                 
@@ -219,13 +282,30 @@
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div>  
+                {% endif %}
+    </div>
     </div>
 </header>
 
-
+<div class="bg-orange-100 text-blue-800">
+    <div class="mx-auto max-w-7xl px-2 py-2 sm:px-6 sm:py-0 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between">
+        <div class="flex w-0 flex-1 items-center">
+          <p class="ml-3 text-center font-medium leading-5 sm:text-left">
+            <span class=""><span class="rounded-md bg-rose-400 px-2 text-white">Save</span> upto 20% with the winter coupons</span>
+          </p>
+        </div>
+        <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-2">
+          <button type="button" class="m-2 -mr-1 flex rounded-md focus:outline-none focus:ring-2 focus:ring-white">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
     
     <!-- Navbar end -->
     
@@ -572,6 +652,42 @@
         if (!userMenuButton.contains(e.target) && !userMenuDropdown.contains(e.target)) {
             userMenuDropdown.classList.add('hidden');
         }
+    });
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function updateSlide() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
+            
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-white');
+                } else {
+                    dot.classList.remove('bg-white');
+                    dot.classList.add('bg-white/50');
+                }
+            });
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                currentSlide = parseInt(dot.getAttribute('data-slide'));
+                updateSlide();
+            });
+        });
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlide();
+        }
+
+        setInterval(nextSlide, 5000);
     });
 </script>
 </html>

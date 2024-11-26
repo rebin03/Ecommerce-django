@@ -25,7 +25,10 @@ urlpatterns = [
     path('', views.SignUpView.as_view(), name='signup'),
     path('verify/email/', views.VerifyEmailView.as_view(), name='verify-email'),
     path('signin/', views.SignInView.as_view(), name='signin'),
+    path('signout/', views.SignOutView.as_view(), name='signout'),
     path('product/all/', views.ProductListView.as_view(), name='product-list'),
     path('product/detail/<int:pk>/', views.ProductDetailView.as_view(), name='product-detail'),
+    path('product/cart/add/<int:pk>/', views.AddToCartView.as_view(), name='add-to-cart'),
+    path('contact/', views.ContactView.as_view(), name='contact'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

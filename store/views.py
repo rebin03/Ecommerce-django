@@ -1,15 +1,26 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from store.forms import SignUpForm, LoginForm
-from store.models import Product, User
+from store.models import BasketItem, Product, Size, User
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+import os
 
 # Create your views here.
 
-
+def send_otp_phone(otp):
+    
+    account_sid = os.environ.get('ACCOUNT_SID')
+    auth_token = os.environ.get('AUTH_TOKEN')
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        from_='+15633629763',
+        body=otp,
+        to='+919895296266'
+    )
+    print(message.sid)
 
 def send_otp_email(user):
     
@@ -81,7 +92,7 @@ class VerifyEmailView(View):
             user_obj.otp = None
             
             user_obj.save()
-            return redirect('signup')
+            return redirect('signin')
         
         except:
             
@@ -122,7 +133,16 @@ class SignInView(View):
             
         return render(request, self.template_name, {'form':form})
     
+
+class SignOutView(View):
     
+    def get(self, request, *args, **kwargs):
+        
+        logout(request)
+        
+        return redirect('signin')
+    
+
 class ProductListView(View):
     
     template_name = 'index.html'
@@ -149,6 +169,54 @@ class ProductDetailView(View):
         
         context = {
             'product':product
+        }
+
+        return render(request, self.template_name, context)
+    
+    
+class ContactView(View):
+    
+    template_name = 'contacts.html'
+
+    def get(self, request, *args, **kwargs):
+        
+        return render(request, self.template_name)
+    
+    
+class AddToCartView(View):
+    
+    def post(self, request, *args, **kwargs):
+        
+        id = kwargs.get('pk')
+        
+        product_obj = Product.objects.get(id=id)
+        size = request.POST.get('size')
+        quantity = request.POST.get('quantity')
+        size_object = Size.objects.get(name=size)
+        basket_object = request.user.cart
+        
+        BasketItem.objects.create(
+            product_object=product_obj,
+            quantity=quantity,
+            size_object=size_object,
+            basket_object=basket_object
+        )
+        
+        print("Item has been added to cart")
+        
+        return redirect('product-list')
+    
+
+class CartSummaryView(View):
+    
+    template_name = 'cart_summary.html'
+
+    def get(self, request, *args, **kwargs):
+        
+        qs = BasketItem.objects.filter(basket_object=request.user.cart, is_order_placed=False)
+
+        context = {
+            'basket_items':qs
         }
 
         return render(request, self.template_name, context)

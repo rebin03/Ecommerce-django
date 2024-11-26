@@ -8,7 +8,7 @@
 <!-- Banner end -->
 
 <!-- Banner start -->
-<section
+<!-- <section
     class="overflow-hidden bg-[url(https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=2670&auto=format&fit=crop)] bg-cover bg-top bg-no-repeat h-1/2"
     >
     <div class="bg-black/50 p-8 md:p-12 lg:px-16 lg:py-24">
@@ -32,11 +32,97 @@
         </div>
         </div>
     </div>
-</section>
+</section> -->
+
+
+<div class="carousel-container">
+    <section 
+        class="carousel-item active" 
+        style="background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?q=80&w=2670&auto=format&fit=crop')"
+    >
+        <div class="relative p-8 md:p-12 lg:px-16 lg:py-24 h-full">
+            <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 flex items-center h-full">
+                <div class="ltr:sm:text-left rtl:sm:text-right">
+                    <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-5xl">Latest Shirts</h2>
+    
+                    <p class="max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore officia corporis quasi
+                    doloribus iure architecto quae voluptatum beatae excepturi dolores.
+                    </p>
+    
+                    <div class="mt-4 sm:mt-8">
+                        <a href="#collection" 
+                            class="inline-block rounded-full bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
+                        >
+                            Get Yours Today
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section 
+        class="carousel-item" 
+        style="background-image: url('https://img.freepik.com/free-photo/young-woman-smiles-covers-her-mouth-while-shopping-lady-beret-poses-near-stand-with-fancy-dresses_197531-17612.jpg?t=st=1732557866~exp=1732561466~hmac=9ea1a5b09cb0be21fdd9467e78baf4405ce75567b42a9712b487ace602a1f1e5&w=996')"
+    >
+        <div class="relative p-8 md:p-12 lg:px-16 lg:py-24 h-full">
+            <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 flex items-center h-full">
+                <div class="ltr:sm:text-left rtl:sm:text-right">
+                    <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-5xl">Summer Collection</h2>
+    
+                    <p class="max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
+                    Explore our latest summer shirts collection, designed for comfort and style.
+                    </p>
+    
+                    <div class="mt-4 sm:mt-8">
+                        <a href="#collection" 
+                            class="inline-block rounded-full bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-700 focus:outline-none focus:ring focus:ring-yellow-400"
+                        >
+                            Shop Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section 
+        class="carousel-item" 
+        style="background-image: url('https://img.freepik.com/free-photo/smiley-man-with-brown-hat-shopping-bags_23-2148316518.jpg?t=st=1732558172~exp=1732561772~hmac=9e99246e592bc1ebb2387c796b1cd9ba0721007f27c3d679f74ecc8914ffc87a&w=1060')"
+    >
+        <div class="relative p-8 md:p-12 lg:px-16 lg:py-24 h-full">
+            <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 flex items-center h-full">
+                <div class="ltr:sm:text-left rtl:sm:text-right">
+                    <h2 class="text-2xl font-bold text-white sm:text-3xl md:text-5xl">Classic Designs</h2>
+    
+                    <p class="max-w-lg text-white/90 md:mt-6 md:block md:text-lg md:leading-relaxed">
+                    Timeless shirts that never go out of style. Quality craftsmanship meets elegant design.
+                    </p>
+    
+                    <div class="mt-4 sm:mt-8">
+                        <a href="#collection" 
+                            class="inline-block rounded-full bg-red-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-red-700 focus:outline-none focus:ring focus:ring-yellow-400"
+                        >
+                            View Collection
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Navigation Dots -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+        <button class="dot w-3 h-3 rounded-full bg-white/50" data-slide="0"></button>
+        <button class="dot w-3 h-3 rounded-full bg-white/50" data-slide="1"></button>
+        <button class="dot w-3 h-3 rounded-full bg-white/50" data-slide="2"></button>
+    </div>
+</div>
 <!-- Banner end -->
 
 <!-- Product section start -->
-<section>
+<section id="collection">
     <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <header>
         <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
@@ -157,6 +243,6 @@
         {% endfor %}
       </ul>
     </div>
-  </section>
+</section>
 <!-- Product section end -->
 {% endblock %}
