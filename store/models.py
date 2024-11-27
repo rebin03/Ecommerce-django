@@ -77,7 +77,17 @@ class Product(BaseModel):
 class Basket(BaseModel):
 
     owner=models.OneToOneField(User, on_delete=models.CASCADE, related_name="cart")
+    
+    # @property
+    # def basket_total(self):
+        
+    #     items = sel.cart.cart_item
+    #     total = 0
+        
+    #     if items:
+    #         total = sum([bi.item_total for bi in items])
 
+    #     return total
 
 # Query to fetch basket of authenticated user
 
@@ -92,6 +102,11 @@ class BasketItem(BaseModel):
     size_object=models.ForeignKey(Size, on_delete=models.CASCADE)
     is_order_placed=models.BooleanField(default=False)
     basket_object=models.ForeignKey(Basket, on_delete=models.CASCADE, related_name="cart_item")
+    
+    @property
+    def item_total(self):
+        
+        return self.product_object.price * self.quantity
 
 
 # Query to fetch basket item to authenticated user

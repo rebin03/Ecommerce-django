@@ -185,27 +185,40 @@ class ContactView(View):
     
 class AddToCartView(View):
     
+    template_name = 'product_detail.html'
+    
     def post(self, request, *args, **kwargs):
         
         id = kwargs.get('pk')
-        
         product_obj = Product.objects.get(id=id)
-        size = request.POST.get('size')
-        quantity = request.POST.get('quantity')
-        size_object = Size.objects.get(name=size)
-        basket_object = request.user.cart
         
-        BasketItem.objects.create(
-            product_object=product_obj,
-            quantity=quantity,
-            size_object=size_object,
-            basket_object=basket_object
-        )
+        try:
+            
+            size = request.POST.get('size')
+            quantity = request.POST.get('quantity')
+            size_object = Size.objects.get(name=size)
+            basket_object = request.user.cart
+            
+            BasketItem.objects.create(
+                product_object=product_obj,
+                quantity=quantity,
+                size_object=size_object,
+                basket_object=basket_object
+            )
+            
+            print("Item has been added to cart")
+            
+            return redirect('cart-summary')
         
-        print("Item has been added to cart")
+        except:
+            messages.error(request, "Please select a size!")
+            
+            context = {
+                'product':product_obj
+            }
+            
+            return render(request, self.template_name, context)
         
-        return redirect('product-list')
-    
 
 class CartSummaryView(View):
     
@@ -214,11 +227,26 @@ class CartSummaryView(View):
     def get(self, request, *args, **kwargs):
         
         qs = BasketItem.objects.filter(basket_object=request.user.cart, is_order_placed=False)
-
-        print(qs)
+        
+        basket_total = sum([bi.item_total for bi in qs])
+        
+        total_items = qs.count()
         
         context = {
-            'basket_items':qs
+            'basket_items':qs,
+            'basket_total':basket_total,
+            'total_items':total_items
         }
 
         return render(request, self.template_name, context)
+    
+    
+class CartItemDeleteView(View):
+    
+    
+    def get(self, request, *args, **kwargs):
+        
+        id = kwargs.get('pk')
+        request.user.cart.cart_item.get(id=id).delete()
+        
+        return redirect('cart-summary')
