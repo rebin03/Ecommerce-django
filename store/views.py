@@ -7,6 +7,7 @@ from twilio.rest import Client
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 import os
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -150,9 +151,22 @@ class ProductListView(View):
     def get(self, request, *args, **kwargs):
         
         qs = Product.objects.all()
+        p = Paginator(qs, 8)
+
+        page_number = request.GET.get('page')
+        
+        try:
+            page_obj = p.get_page(page_number)  # returns the desired page object
+        except PageNotAnInteger:
+            # if page_number is not an integer then assign the first page
+            page_obj = p.page(1)
+        except EmptyPage:
+            # if page is empty then return last page
+            page_obj = p.page(p.num_pages)
         
         context = {
-            'products': qs
+            # 'products': qs,
+            'page_obj': page_obj
         }
         
         return render(request, self.template_name, context)
