@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from store.forms import SignUpForm, LoginForm
-from store.models import BasketItem, Product, Size, User
+from store.forms import SignUpForm, LoginForm, OrderForm
+from store.models import BasketItem, OrderItem, Product, Size, User
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.contrib import messages
@@ -264,3 +264,56 @@ class CartItemDeleteView(View):
         request.user.cart.cart_item.get(id=id).delete()
         
         return redirect('cart-summary')
+
+
+class WishListView(View):
+    
+    template_name = 'wishlist.html'
+
+    def get(self, request, *args, **kwargs):
+        
+        return render(request, self.template_name)
+    
+    
+class PlaceOrderView(View):
+    
+    template_name = 'place_order.html'
+    form_class = OrderForm
+    
+    def get(self, request, *args, **kwargs):
+        
+        form = self.form_class()
+        
+        context = {
+            'form': form
+        }
+        
+        return render(request, self.template_name, context)
+    
+    
+    def post(self, request, *args, **kwargs):
+        
+        form_data = request.POST
+        form = self.form_class(form_data)
+        
+        if form.is_valid():
+            
+            form.instance.customer = request.user
+            order_instance = form.save()
+            
+            basket_items = request.user.cart.cart_item.filter(is_order_placed=False)
+
+            for bi in basket_items:
+                
+                OrderItem.objects.create(
+                    order_object = order_instance,
+                    product_object = bi.product_object,
+                    quantity = bi.quantity,
+                    size_object = bi.size_object,
+                    price = bi.product_object.price
+                )
+                
+                bi.is_order_placed = True
+                bi.save()
+                
+            return redirect('product-list')
