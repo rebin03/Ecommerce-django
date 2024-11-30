@@ -7,112 +7,110 @@
     <form action="#" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
 
       <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
+
         <div class="min-w-0 flex-1 space-y-8">
-            <div class="space-y-4">
-                <h2 class="text-xl font-semibold text-gray-900 light:text-white">Delivery Details</h2>
+
+          <div class="space-y-4">
+            <h2 class="text-xl font-semibold text-gray-900 light:text-white">Delivery Details</h2>
+
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 border px-4 py-4 sm:px-6 shadow rounded">
+                <div>
+                    <label for="address" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Address <span class="text-red-500">*</span> </label>
+                    <textarea id="address" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="Enter Your Full Address"></textarea>
+                </div>
+                <!-- <div>
+                    <label for="your_email" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Your email* </label>
+                    <input type="email" id="your_email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="name@flowbite.com" required />
+                </div> -->
     
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
-                    <div>
-                        <label for="address" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Address <span class="text-red-500">*</span> </label>
-                        <textarea id="address" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="Enter Your Full Address"></textarea>
-                    </div>
-                    <!-- <div>
-                        <label for="your_email" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Your email* </label>
-                        <input type="email" id="your_email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="name@flowbite.com" required />
-                    </div> -->
-        
-                    <!-- <div>
-                        <div class="mb-2 flex items-center gap-2">
-                        <label for="select-country-input-3" class="block text-sm font-medium text-gray-900 light:text-white"> Country* </label>
-                        </div>
-                        <select id="select-country-input-3" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500">
-                        <option selected>United States</option>
-                        <option value="AS">Australia</option>
-                        <option value="FR">France</option>
-                        <option value="ES">Spain</option>
-                        <option value="UK">United Kingdom</option>
-                        </select>
-                    </div> -->
-        
-                    <!-- <div>
-                        <div class="mb-2 flex items-center gap-2">
-                        <label for="select-city-input-3" class="block text-sm font-medium text-gray-900 light:text-white"> City* </label>
-                        </div>
-                        <select id="select-city-input-3" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500">
-                        <option selected>San Francisco</option>
-                        <option value="NY">New York</option>
-                        <option value="LA">Los Angeles</option>
-                        <option value="CH">Chicago</option>
-                        <option value="HU">Houston</option>
-                        </select>
-                    </div> -->
-        
-                    <div>
-                        <label for="phone-input-3" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Phone Number <span class="text-red-500">*</span> </label>
-                        <div class="flex items-center">
-                            <div id="dropdown-phone-button-3" class="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-100 light:border-gray-600 light:bg-gray-700 light:text-white light:hover:bg-gray-600 light:focus:ring-gray-700">
-                                <svg fill="none" aria-hidden="true" class="me-2 h-4 w-4" viewBox="0 0 20 15">
+                <div>
+                    <label for="phone-input-3" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Phone Number <span class="text-red-500">*</span> </label>
+                    <div class="flex items-center">
+                        <div id="dropdown-phone-button-3" class="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-100 light:border-gray-600 light:bg-gray-700 light:text-white light:hover:bg-gray-600 light:focus:ring-gray-700">
+                            <svg fill="none" aria-hidden="true" class="me-2 h-4 w-4" viewBox="0 0 20 15">
+                                <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
+                                <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
                                     <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                                    <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                                        <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                                    </mask>
-                                    <g mask="url(#a)">
-                                        <!-- Saffron stripe at the top -->
-                                        <path fill="#FF9933" d="M0 .5h19.6v4.667H0z" />
-                                        
-                                        <!-- White middle stripe -->
-                                        <path fill="#FFFFFF" d="M0 5.167h19.6v3.666H0z" />
-                                        
-                                        <!-- Green stripe at the bottom -->
-                                        <path fill="#138808" d="M0 8.833h19.6v5.667H0z" />
-                                        
-                                        <!-- Ashoka Chakra (24-spoke wheel) in navy blue -->
-                                        <g transform="translate(9.8, 6.967) scale(1.2)">
-                                            <circle cx="0" cy="0" r="1.2" fill="#000088" />
-                                            <g fill="#FFFFFF">
-                                                <!-- 24 spokes -->
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(0)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(15)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(30)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(45)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(60)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(75)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(90)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(105)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(120)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(135)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(150)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(165)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(180)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(195)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(210)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(225)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(240)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(255)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(270)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(285)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(300)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(315)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(330)" />
-                                                <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(345)" />
-                                            </g>
+                                </mask>
+                                <g mask="url(#a)">
+                                    <!-- Saffron stripe at the top -->
+                                    <path fill="#FF9933" d="M0 .5h19.6v4.667H0z" />
+                                    
+                                    <!-- White middle stripe -->
+                                    <path fill="#FFFFFF" d="M0 5.167h19.6v3.666H0z" />
+                                    
+                                    <!-- Green stripe at the bottom -->
+                                    <path fill="#138808" d="M0 8.833h19.6v5.667H0z" />
+                                    
+                                    <!-- Ashoka Chakra (24-spoke wheel) in navy blue -->
+                                    <g transform="translate(9.8, 6.967) scale(1.2)">
+                                        <circle cx="0" cy="0" r="1.2" fill="#000088" />
+                                        <g fill="#FFFFFF">
+                                            <!-- 24 spokes -->
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(0)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(15)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(30)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(45)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(60)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(75)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(90)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(105)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(120)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(135)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(150)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(165)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(180)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(195)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(210)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(225)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(240)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(255)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(270)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(285)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(300)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(315)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(330)" />
+                                            <path d="M0 -1 L0.1 1 L-0.1 1 Z" transform="rotate(345)" />
                                         </g>
                                     </g>
-                                </svg>
-                                +91
-                            </div>
-                            <div class="relative w-full">
-                                <input type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:border-s-gray-700  light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="1234-5678-90" required />
-                            </div>
+                                </g>
+                            </svg>
+                            +91
+                        </div>
+                        <div class="relative w-full">
+                            <input type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:border-s-gray-700  light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="1234-5678-90" required />
                         </div>
                     </div>
-        
-                    <div>
-                        <label for="email" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Email <span class="text-red-500">*</span> </label>
-                        <input type="email" id="email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="name@gmail.com" required />
-                    </div>
+                </div>
+    
+                <div>
+                    <label for="email" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Email <span class="text-red-500">*</span> </label>
+                    <input type="email" id="email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 light:border-gray-600 light:bg-gray-700 light:text-white light:placeholder:text-gray-400 light:focus:border-primary-500 light:focus:ring-primary-500" placeholder="name@gmail.com" required />
                 </div>
             </div>
+        </div>
+
+          <!-- order summary start -->
+          <h2 class="text-xl font-semibold text-gray-900 light:text-white">Order Summary</h2>
+          <div class="space-y-3 border bg-white px-2 py-4 sm:px-6 shadow rounded">
+            <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+              <img class="m-2 h-24 w-28 border object-cover object-center" src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+              <div class="flex w-full flex-col px-4 py-4">
+                <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
+                <span class="float-right text-gray-400">42EU - 8.5US</span>
+                <p class="text-lg font-bold">$138.99</p>
+              </div>
+            </div>
+            <div class="flex flex-col rounded-lg bg-white sm:flex-row">
+              <img class="m-2 h-24 w-28 border object-cover object-center" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="" />
+              <div class="flex w-full flex-col px-4 py-4">
+                <span class="font-semibold">Nike Air Max Pro 8888 - Super Light</span>
+                <span class="float-right text-gray-400">42EU - 8.5US</span>
+                <p class="mt-auto text-lg font-bold">$238.99</p>
+              </div>
+            </div>
+          </div>
+          <!-- order summary end -->
   
 
   
@@ -229,7 +227,7 @@
               </div>
             <!-- payment method end -->
 
-          <div class="flow-root border p-7">
+          <div class="flow-root border rounded p-7">
             <div class="-my-3 divide-y divide-gray-200 light:divide-gray-800">
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-normal text-gray-500 light:text-gray-400">Subtotal</dt>

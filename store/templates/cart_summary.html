@@ -17,8 +17,8 @@
       <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
       <!-- basket item start -->
       {% for bi in basket_items %}
-        <div class="space-y-6 mb-3">
-          <div class= "border border-gray-200 bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 md:p-6">
+        <div class="space-y-6 mb-3 relative">
+          <div class= "border border-gray-200 rounded bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 md:p-6">
             <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
               <span href="" class="shrink-0 md:order-1">
                 {% if bi.product_object.picture %}
@@ -53,20 +53,20 @@
                       <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
                       </svg>
-                      Add to Favorites
+                      Add to Whishlist
                     </button>
                   </a>
 
-                  <a href="{% url 'cart-item-delete' bi.id %}">
-                    <button type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline light:text-red-500">
-                      <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
-                      </svg>
-                      Remove
-                    </button>
-                  </a>
+
                 </div>
               </div>
+              <a href="{% url 'cart-item-delete' bi.id %}" class="absolute top-0 end-0 py-2 px-1">
+                <button type="button" class="inline-flex items-center text-sm font-medium text-red-600 hover:underline light:text-red-500">
+                  <svg class="me-1.5 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                  </svg>
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
       </div>
 
       <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
-        <div class="space-y-4 border border-gray-200 bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 sm:p-6">
+        <div class="space-y-4 rounded border border-gray-200 bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 sm:p-6">
           <p class="text-xl font-semibold text-gray-900 light:text-white">Order summary</p>
 
           <div class="space-y-4">
@@ -120,7 +120,7 @@
           </div>
         </div>
 
-        <div class="space-y-4 border border-gray-200 bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 sm:p-6">
+        <div class="space-y-4 rounded border border-gray-200 bg-white p-4 shadow-sm light:border-gray-700 light:bg-gray-800 sm:p-6">
           <form class="space-y-4">
             <div>
               <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900 light:text-white"> Do you have a voucher or gift card? </label>
