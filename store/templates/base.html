@@ -518,7 +518,30 @@
 </body>
 <script>
 
+    //Alert message closing
+    document.addEventListener('DOMContentLoaded', function () {
+        const alertBox = document.getElementById('alert');
+        const closeButton = document.getElementById('closeAlert');
+    
+        // Automatically close the alert after 5 seconds
+        setTimeout(() => {
+            if (alertBox) {
+                alertBox.style.opacity = '0';
+                setTimeout(() => alertBox.remove(), 500); // Allow fade-out animation before removal
+            }
+        }, 5000);
+    
+        // Manually close the alert
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                alertBox.style.opacity = '0';
+                setTimeout(() => alertBox.remove(), 500);
+            });
+        }
+    });
 
+
+    //Nav toggling
     document.addEventListener('DOMContentLoaded', () => {
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenuClose = document.getElementById('mobile-menu-close');

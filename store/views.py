@@ -214,12 +214,17 @@ class AddToCartView(View):
         product_obj = Product.objects.get(id=id)
         
         if request.user.is_authenticated:
+            
             try:
             
                 size = request.POST.get('size')
                 quantity = request.POST.get('quantity')
                 size_object = Size.objects.get(name=size)
                 basket_object = request.user.cart
+                
+                if BasketItem.objects.filter(product_object=product_obj, is_order_placed=False, size_object=size_object):
+                    messages.info(request, 'Already added to cart! Select different size')
+                    return redirect('product-detail', id)
                 
                 BasketItem.objects.create(
                     product_object=product_obj,
@@ -240,8 +245,9 @@ class AddToCartView(View):
                 }
                 
                 return render(request, self.template_name, context)
-        
-        return redirect('product-detail', id)
+            
+        messages.info(request, 'Login or Register for add product to cart')
+        return render(request, self.template_name, {'product':product_obj})
         
         
 class CartSummaryView(View):
