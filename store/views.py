@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from store.forms import SignUpForm, LoginForm, OrderForm
-from store.models import BasketItem, OrderItem, Product, Size, User
+from store.models import BasketItem, OrderItem, Product, Size, User, WishlistItem
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.contrib import messages
@@ -17,9 +17,9 @@ def send_otp_phone(otp):
     auth_token = os.environ.get('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
     message = client.messages.create(
-        from_='+15633629763',
+        from_= os.environ.get('TWILIO_FROM_NUMBER'),
         body=otp,
-        to='+919895296266'
+        to= os.environ.get('TO_NUMBER')
     )
     print(message.sid)
 
@@ -141,7 +141,7 @@ class SignOutView(View):
         
         logout(request)
         
-        return redirect('signin')
+        return redirect('product-list')
     
 
 class ProductListView(View):
@@ -152,6 +152,12 @@ class ProductListView(View):
         
         qs = Product.objects.all()
         p = Paginator(qs, 8)
+        
+        wishlit_items_ids = []
+        
+        if request.user.is_authenticated:
+            wishlit_items = request.user.wishlist.wishlist_item.all()
+            wishlit_items_ids = [wi.product_object.id for wi in wishlit_items]
 
         page_number = request.GET.get('page')
         
@@ -166,7 +172,8 @@ class ProductListView(View):
         
         context = {
             # 'products': qs,
-            'page_obj': page_obj
+            'page_obj': page_obj,
+            'wishlist_items_ids': wishlit_items_ids
         }
         
         return render(request, self.template_name, context)
@@ -206,34 +213,37 @@ class AddToCartView(View):
         id = kwargs.get('pk')
         product_obj = Product.objects.get(id=id)
         
-        try:
+        if request.user.is_authenticated:
+            try:
             
-            size = request.POST.get('size')
-            quantity = request.POST.get('quantity')
-            size_object = Size.objects.get(name=size)
-            basket_object = request.user.cart
-            
-            BasketItem.objects.create(
-                product_object=product_obj,
-                quantity=quantity,
-                size_object=size_object,
-                basket_object=basket_object
-            )
-            
-            print("Item has been added to cart")
-            
-            return redirect('cart-summary')
+                size = request.POST.get('size')
+                quantity = request.POST.get('quantity')
+                size_object = Size.objects.get(name=size)
+                basket_object = request.user.cart
+                
+                BasketItem.objects.create(
+                    product_object=product_obj,
+                    quantity=quantity,
+                    size_object=size_object,
+                    basket_object=basket_object
+                )
+                
+                print("Item has been added to cart")
+                
+                return redirect('cart-summary')
         
-        except:
-            messages.error(request, "Please select a size!")
-            
-            context = {
-                'product':product_obj
-            }
-            
-            return render(request, self.template_name, context)
+            except:
+                messages.error(request, "Please select a size!")
+                
+                context = {
+                    'product':product_obj
+                }
+                
+                return render(request, self.template_name, context)
         
-
+        return redirect('product-detail', id)
+        
+        
 class CartSummaryView(View):
     
     template_name = 'cart_summary.html'
@@ -272,7 +282,40 @@ class WishListView(View):
 
     def get(self, request, *args, **kwargs):
         
-        return render(request, self.template_name)
+        qs = request.user.wishlist.wishlist_item.all()
+        
+        context = {
+            'products': qs
+        }
+        
+        return render(request, self.template_name, context)
+    
+
+class AddToWishlist(View):
+    
+    def get(self, request, *args, **kwargs):
+        
+        id = kwargs.get('pk')
+        product_obj = Product.objects.get(id=id)
+        
+        if not WishlistItem.objects.filter(product_object=product_obj):
+        
+            WishlistItem.objects.create(
+                product_object = product_obj,
+                whishlist_object = request.user.wishlist
+            )
+        
+        return redirect('product-list')
+    
+
+class WishListItemDelete(View):
+    
+    def get(self, request, *args, **kwargs):
+        
+        id = kwargs.get('pk')
+        WishlistItem.objects.get(id=id).delete()
+        
+        return redirect('wishlist')
     
     
 class PlaceOrderView(View):

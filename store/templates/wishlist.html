@@ -2,13 +2,82 @@
 
 {% block main %}
 
+{% if products %}
+<section style="min-height: 100vh;">
+  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <header class="text-center">
+      <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">Your Favorites</h2>
+
+      <p class="mx-auto mt-4 max-w-md text-gray-500">
+        Don’t wait! Add your favorite items to the cart now.      
+      </p>
+    </header>
+
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {% for p in products %}
+      <li>
+        <div class="w-70 bg-white shadow rounded relative">
+          <a href="{% url 'product-detail' p.product_object.id %}" class="block">
+              <div class="h-48 w-full bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center"
+                  style="background-image: url('{{p.product_object.picture.url}}')">
+              </div>
+              <div class="p-4 flex flex-col items-center">
+                  <p class="text-gray-400 font-light text-xs text-center">{{p.product_object.brand_object}}</p>
+                  <h1 class="text-gray-800 text-center mt-1">{{p.product_object.title}}</h1>
+                  <p class="text-center text-gray-800 mt-1">₹{{p.product_object.price}}</p>
+                  <!-- <div class="inline-flex items-center mt-2">
+                      <button
+                          class="bg-white rounded-l border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                          </svg>
+                      </button>
+                      <div
+                          class="bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center px-4 py-1 select-none">
+                          1
+                      </div>
+                      <button
+                          class="bg-white rounded-r border text-gray-600 hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50 inline-flex items-center px-2 py-1 border-r border-gray-200">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-4" fill="none" viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                          </svg>
+                      </button>
+                  </div> -->
+        
+                  <a href=""
+                     class="py-2 px-4 bg-teal-600 text-white rounded hover:bg-teal-700 active:bg-teal-800 disabled:opacity-50 mt-4 w-full flex items-center justify-center">
+                      Add to cart
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                  </a>
+              </div>
+          </a>
+          
+          <a href="{% url 'whishlist-item-delete' p.id %}" class="text-black/50 hover:text-red-500 absolute top-2 right-2 z-10 bg-white/50 p-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+          </a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% else %}
   <!-- empty cart section start -->
   <div class="flex items-center justify-center text-center" style="min-height: 100vh;">
     <div>
         <h2 class="text-xl font-bold text-gray-700">Your Wishlist is Empty!</h2>
         <p class="text-gray-500 text-sm mt-2 mb-10">Add items that you like to your wishlist.</p>
         <a class="px-4 py-2 sm:px-6 sm:py-3 m-4 sm:m-10 min-w-[100px] sm:min-w-[120px] text-center text-teal-600 border border-teal-600 rounded hover:bg-teal-600 hover:text-white active:bg-teal-500 focus:outline-none focus:ring focus:ring-teal-300 transition-all duration-200 ease-in-out"
-        href="">
+        href="{% url 'product-list' %}">
         CONTINUE SHOPPING
         </a>
         <div class="flex justify-center mt-12">
@@ -17,5 +86,6 @@
     </div>
   </div>
   <!-- empty cart section end -->
+{% endif %}
 
 {% endblock %}

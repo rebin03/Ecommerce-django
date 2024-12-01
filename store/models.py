@@ -81,7 +81,7 @@ class Basket(BaseModel):
     # @property
     # def basket_total(self):
         
-    #     items = sel.cart.cart_item
+    #     items = self.cart.cart_item
     #     total = 0
         
     #     if items:
@@ -149,3 +149,23 @@ class OrderItem(BaseModel):
     quantity=models.PositiveIntegerField(default=1)
     size_object=models.ForeignKey(Size, on_delete=models.CASCADE)
     price=models.FloatField()
+    
+    
+class Wishlist(BaseModel):
+    
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='wishlist')
+    
+    
+class WishlistItem(BaseModel):
+    
+    product_object = models.ForeignKey(Product, on_delete=models.CASCADE)
+    whishlist_object = models.ForeignKey(Wishlist, on_delete=models.CASCADE, related_name='wishlist_item')
+    
+
+def create_whishlist(sender, instance, created, **kwargs):
+    
+    if created:
+        
+        Wishlist.objects.create(owner=instance)
+        
+post_save.connect(create_whishlist, User)

@@ -30,9 +30,11 @@ urlpatterns = [
     path('product/detail/<int:pk>/', views.ProductDetailView.as_view(), name='product-detail'),
     path('product/cart/add/<int:pk>/', views.AddToCartView.as_view(), name='add-to-cart'),
     path('cart/summary/', views.CartSummaryView.as_view(), name='cart-summary'),
-    path('cart/item/remove/<int:pk>', views.CartItemDeleteView.as_view(), name='cart-item-delete'),
+    path('cart/item/remove/<int:pk>/', views.CartItemDeleteView.as_view(), name='cart-item-delete'),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('wishlist/', views.WishListView.as_view(), name='wishlist'),
-    path('place/order/', views.PlaceOrderView.as_view(), name='place-order')
+    path('whishlist/item/add/<int:pk>/', views.AddToWishlist.as_view(), name='add-to-wishlist'),
+    path('whishlist/item/remove/<int:pk>/', views.WishListItemDelete.as_view(), name='whishlist-item-delete'),
+    path('place/order/', views.PlaceOrderView.as_view(), name='place-order'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
