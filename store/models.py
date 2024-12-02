@@ -140,16 +140,25 @@ class Order(BaseModel):
     payment_method=models.CharField(max_length=15, choices=PAYMENT_OPTIONS, default="COD")
     rzp_order_id=models.CharField(max_length=100, null=True)
     is_paid=models.BooleanField(default=False)
+    
+    @property
+    def order_total_price(self):
+        
+        total = sum([oi.item_total_price for oi in self.orderitems.all()])
 
+        return total
 
 class OrderItem(BaseModel):
 
     order_object=models.ForeignKey(Order,on_delete=models.CASCADE, related_name="orderitems")
-    product_object=models.ForeignKey(Product,on_delete=models.CASCADE)
+    product_object=models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity=models.PositiveIntegerField(default=1)
     size_object=models.ForeignKey(Size, on_delete=models.CASCADE)
     price=models.FloatField()
     
+    @property
+    def item_total_price(self):
+        return self.quantity * self.price
     
 class Wishlist(BaseModel):
     

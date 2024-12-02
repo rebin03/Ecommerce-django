@@ -333,8 +333,11 @@ class PlaceOrderView(View):
         
         form = self.form_class()
         
+        qs = request.user.cart.cart_item.filter(is_order_placed=False)
+        
         context = {
-            'form': form
+            'form': form,
+            'items': qs
         }
         
         return render(request, self.template_name, context)
@@ -365,4 +368,15 @@ class PlaceOrderView(View):
                 bi.is_order_placed = True
                 bi.save()
                 
-            return redirect('product-list')
+            return redirect('order-summary')
+        
+
+class OrderSummaryView(View):
+    
+    template_name = 'order_summary.html'
+
+    def get(self, request, *args, **kwargs):
+        
+        qs = reversed(request.user.orders.all())
+        
+        return render(request, self.template_name, {'orders': qs})

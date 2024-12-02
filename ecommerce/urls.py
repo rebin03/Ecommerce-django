@@ -36,5 +36,6 @@ urlpatterns = [
     path('whishlist/item/add/<int:pk>/', views.AddToWishlist.as_view(), name='add-to-wishlist'),
     path('whishlist/item/remove/<int:pk>/', views.WishListItemDelete.as_view(), name='whishlist-item-delete'),
     path('place/order/', views.PlaceOrderView.as_view(), name='place-order'),
+    path('order/summary/', views.OrderSummaryView.as_view(), name='order-summary'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
