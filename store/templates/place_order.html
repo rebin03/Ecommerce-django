@@ -159,11 +159,16 @@
           <div class="space-y-3 border bg-white px-2 py-4 sm:px-6 shadow rounded">
           {% for i in items %}
             <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-              <img class="m-2 h-24 w-28 border object-cover object-center" src="{{i.product_object.picture.url}}" alt="" />
+              {% if i.product_object.picture %}
+                <img class="m-2 h-24 w-28 border object-cover object-center" src="{{i.product_object.picture.url}}" alt="" />
+              {% else %}
+                <img class="m-2 h-24 w-28 border object-cover object-center" src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" alt="" />
+              {% endif %}
               <div class="flex w-full flex-col px-4 py-4">
                 <span class="font-semibold">{{i.product_object.title}}</span>
                 <span class="float-right text-gray-400">Qty: {{i.quantity}}</span>
-                <p class="text-lg font-bold">₹{{i.item_total}}</p>
+                <span class="float-right text-gray-400">{{i.size_object}}</span>
+                <p class="text-lg font-bold">₹{{i.product_object.price}}</p>
               </div>
             </div>
             {% endfor %}
@@ -289,7 +294,7 @@
             <div class="-my-3 divide-y divide-gray-200 light:divide-gray-800">
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-normal text-gray-500 light:text-gray-400">Subtotal</dt>
-                <dd class="text-base font-medium text-gray-900 light:text-white">₹8,094.00</dd>
+                <dd class="text-base font-medium text-gray-900 light:text-white">₹{{total_price}}</dd>
               </dl>
   
               <dl class="flex items-center justify-between gap-4 py-3">
@@ -299,17 +304,17 @@
   
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-normal text-gray-500 light:text-gray-400">Store Pickup</dt>
-                <dd class="text-base font-medium text-gray-900 light:text-white">₹99</dd>
+                <dd class="text-base font-medium text-gray-900 light:text-white">₹49</dd>
               </dl>
   
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-normal text-gray-500 light:text-gray-400">Tax</dt>
-                <dd class="text-base font-medium text-gray-900 light:text-white">₹199</dd>
+                <dd class="text-base font-medium text-gray-900 light:text-white">₹0</dd>
               </dl>
   
               <dl class="flex items-center justify-between gap-4 py-3">
                 <dt class="text-base font-bold text-gray-900 light:text-white">Total</dt>
-                <dd class="text-base font-bold text-gray-900 light:text-white">₹8,392.00</dd>
+                <dd class="text-base font-bold text-gray-900 light:text-white">₹{{total_price | add:49}}</dd>
               </dl>
             </div>
 

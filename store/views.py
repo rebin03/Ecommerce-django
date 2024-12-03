@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 import os
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+RZP_KEY_ID = os.environ.get('RZP_KEY_ID')
+RZP_KEY_SECRET = os.environ.get('RZP_KEY_SECRET')
+
 # Create your views here.
 
 def send_otp_phone(otp):
@@ -335,9 +338,12 @@ class PlaceOrderView(View):
         
         qs = request.user.cart.cart_item.filter(is_order_placed=False)
         
+        total_order_price = sum([bi.item_total for bi in qs])
+        
         context = {
             'form': form,
-            'items': qs
+            'items': qs,
+            'total_price': total_order_price
         }
         
         return render(request, self.template_name, context)

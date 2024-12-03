@@ -80,11 +80,15 @@
             <ul class="mt-6 space-y-3">
               <li class="flex items-center justify-between">
                 <p class="text-sm font-medium">Sub total</p>
-                <p class="text-sm font-medium">₹00</p>
+                <p class="text-sm font-medium">₹{{o.order_total_price}}</p>
+              </li>
+              <li class="flex items-center justify-between">
+                <p class="text-sm font-medium">Pickup</p>
+                <p class="text-sm font-medium">₹49</p>
               </li>
               <li class="flex items-center justify-between">
                 <p class="text-sm font-medium ">Total</p>
-                <p class="text-sm font-bold ">₹{{o.order_total_price}}</p>
+                <p class="text-sm font-bold ">₹{{o.order_total_price | add:49}}</p>
               </li>
             </ul>
           </div>
