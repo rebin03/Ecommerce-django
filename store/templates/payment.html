@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    
+
     <button id="rzp-button1">Pay with Razorpay</button>
 
 </body>
@@ -22,15 +22,15 @@ var options = {
     "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
     "prefill": {
-        "name": "Gaurav Kumar",
-        "email": "gaurav.kumar@example.com",
-        "contact": "9000090000"
+        "name": "{{name}}",
+        "email": "{{email}}",
+        "contact": "{{phone}}"
     },
     "notes": {
         "address": "Razorpay Corporate Office"
     },
     "theme": {
-        "color": "#3399cc"
+        "color": "#0D9488"
     }
 };
 var rzp1 = new Razorpay(options);

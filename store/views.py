@@ -391,14 +391,20 @@ class PlaceOrderView(View):
                 rzp_order_id = payment.get('id')
                 
                 order_instance.rzp_order_id = rzp_order_id
-                
                 order_instance.save()
+                
+                name = request.user.username
+                email = request.user.email
+                phone = request.user.phone
                 
                 context = {
                     'amount': amount,
                     'key_id': RZP_KEY_ID,
                     'order_id': rzp_order_id,
-                    'currency':'INR'
+                    'currency':'INR',
+                    'name': name.capitalize(),
+                    'email': email,
+                    'phone': phone,
                 }
                 
                 return render(request, 'payment.html', context)
