@@ -326,6 +326,7 @@ class WishListItemDelete(View):
         
         return redirect('wishlist')
     
+import razorpay
     
 class PlaceOrderView(View):
     
@@ -360,6 +361,9 @@ class PlaceOrderView(View):
             order_instance = form.save()
             
             basket_items = request.user.cart.cart_item.filter(is_order_placed=False)
+            
+            payment_method = form.cleaned_data.get('payment_method')
+            print(payment_method)
 
             for bi in basket_items:
                 
@@ -374,6 +378,31 @@ class PlaceOrderView(View):
                 bi.is_order_placed = True
                 bi.save()
                 
+            if payment_method == "ONLINE":
+                
+                client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
+                
+                amount = sum([bi.item_total for bi in basket_items]) * 100
+
+                data = { "amount": amount, "currency": "INR", "receipt": "order_rcptid_11" }
+                
+                payment = client.order.create(data=data)
+                
+                rzp_order_id = payment.get('id')
+                
+                order_instance.rzp_order_id = rzp_order_id
+                
+                order_instance.save()
+                
+                context = {
+                    'amount': amount,
+                    'key_id': RZP_KEY_ID,
+                    'order_id': rzp_order_id,
+                    'currency':'INR'
+                }
+                
+                return render(request, 'payment.html', context)
+            
             return redirect('order-summary')
         
 
