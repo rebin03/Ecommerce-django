@@ -22,11 +22,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.SignUpView.as_view(), name='signup'),
+    path('signup', views.SignUpView.as_view(), name='signup'),
     path('verify/email/', views.VerifyEmailView.as_view(), name='verify-email'),
     path('signin/', views.SignInView.as_view(), name='signin'),
     path('signout/', views.SignOutView.as_view(), name='signout'),
-    path('product/all/', views.ProductListView.as_view(), name='product-list'),
+    path('', views.ProductListView.as_view(), name='product-list'),
     path('product/detail/<int:pk>/', views.ProductDetailView.as_view(), name='product-detail'),
     path('product/cart/add/<int:pk>/', views.AddToCartView.as_view(), name='add-to-cart'),
     path('cart/summary/', views.CartSummaryView.as_view(), name='cart-summary'),
@@ -37,5 +37,6 @@ urlpatterns = [
     path('whishlist/item/remove/<int:pk>/', views.WishListItemDelete.as_view(), name='whishlist-item-delete'),
     path('place/order/', views.PlaceOrderView.as_view(), name='place-order'),
     path('order/summary/', views.OrderSummaryView.as_view(), name='order-summary'),
+    path('payment/verify/', views.PaymentVerificationView.as_view(), name='verify-payment'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

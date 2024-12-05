@@ -3,6 +3,24 @@
 {%block main%}
 
 
+  <!-- empty order section start -->
+  <!-- <div class="flex items-center justify-center text-center" style="min-height: 100vh;">
+    <div>
+      <div class="flex justify-center">
+        <img src="https://i.pinimg.com/736x/76/21/e1/7621e1f1469c0d859a16918ec3936743.jpg" alt="Empty Cart" class="w-72 h-72">
+      </div>
+      <h2 class="text-xl font-bold text-gray-700 mt-4">You have no order yet!</h2>
+      <p class="text-gray-500 text-sm mt-2 mb-10">Start shopping now.</p>
+      <a class="px-4 py-2 sm:px-6 sm:py-3 m-4 sm:m-10 min-w-[100px] sm:min-w-[120px] text-center text-teal-600 border border-teal-600 rounded hover:bg-teal-600 hover:text-white active:bg-teal-500 focus:outline-none focus:ring focus:ring-teal-300 transition-all duration-200 ease-in-out"
+        href="{% url 'wishlist' %}">
+        GO TO SHOP
+      </a>
+   
+    </div>
+  </div> -->
+  <!-- empty order section end -->
+
+
 {%for o in orders%}
 
 <div class="mx-auto my-4 max-w-4xl md:my-6">
@@ -49,7 +67,7 @@
                   <p class="text-right text-sm font-bold text-gray-900">
                     ₹{{oi.item_total_price}}
                   </p>
-                  <button
+                  <!-- <button
                     type="button"
                     class="-m-2 inline-flex rounded p-2 text-gray-400 transition-all duration-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
                   >
@@ -69,7 +87,7 @@
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
-                  </button>
+                  </button> -->
                 </div>
               </li>
   
@@ -106,12 +124,14 @@
                 <p class="text-xs font-medium text-gray-700">
                   Date: {{o.created_date|date}}
                 </p>
+                {% if o.is_paid %}
                 <button
                   type="button"
                   class="mt-4 rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   View Invoice
                 </button>
+                {% endif %}
               </div>
               <div class="py-6">
                 <h2 class="mb-2 text-base font-bold text-black">
@@ -130,11 +150,11 @@
                 <p class="mt-3 text-xs font-medium text-gray-700">
                   {%if o.is_paid%}
   
-                    completed
+                    <span class="text-green-600">completed</span>
   
                   {%else%}
   
-                    pending
+                    <span class="text-yellow-600">pending</span>
   
                   {%endif%}
                 </p>
@@ -145,10 +165,8 @@
         </div>
       </div>
     </div>
-  </div>
-
+</div>
 
 {%endfor%}
-
 
 {%endblock%}

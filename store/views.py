@@ -1,28 +1,32 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from store.forms import SignUpForm, LoginForm, OrderForm
-from store.models import BasketItem, OrderItem, Product, Size, User, WishlistItem
+from store.models import BasketItem, Order, OrderItem, Product, Size, User, WishlistItem
 from django.core.mail import send_mail
 from twilio.rest import Client
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 import os
+from decouple import config
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import razorpay
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
-RZP_KEY_ID = os.environ.get('RZP_KEY_ID')
-RZP_KEY_SECRET = os.environ.get('RZP_KEY_SECRET')
+RZP_KEY_ID = config('RZP_KEY_ID')
+RZP_KEY_SECRET = config('RZP_KEY_SECRET')
 
 # Create your views here.
 
 def send_otp_phone(otp):
     
-    account_sid = os.environ.get('ACCOUNT_SID')
-    auth_token = os.environ.get('AUTH_TOKEN')
+    account_sid = config('ACCOUNT_SID')
+    auth_token = config('AUTH_TOKEN')
     client = Client(account_sid, auth_token)
     message = client.messages.create(
-        from_= os.environ.get('TWILIO_FROM_NUMBER'),
+        from_= config('TWILIO_FROM_NUMBER'),
         body=otp,
-        to= os.environ.get('TO_NUMBER')
+        to= config('TO_NUMBER')
     )
     print(message.sid)
 
@@ -326,7 +330,6 @@ class WishListItemDelete(View):
         
         return redirect('wishlist')
     
-import razorpay
     
 class PlaceOrderView(View):
     
@@ -421,3 +424,30 @@ class OrderSummaryView(View):
         qs = reversed(request.user.orders.all())
         
         return render(request, self.template_name, {'orders': qs})
+    
+
+@method_decorator(csrf_exempt, name='dispatch')   
+class PaymentVerificationView(View):
+    
+    def post(self, request, *args, **kwargs):
+        
+        client = razorpay.Client(auth=(RZP_KEY_ID, RZP_KEY_SECRET))
+
+        try:
+            client.utility.verify_payment_signature(request.POST)
+            print('payment success')
+            
+            order_id = request.POST.get('razorpay_order_id')
+            order_object = Order.objects.get(rzp_order_id=order_id)
+            order_object.is_paid = True
+            order_object.save()
+            
+            # User session may end due to using csrf_exempt. So login again to avoid authentication issue.
+            login(request, order_object.customer)
+            
+        except:
+            print('payment failed')
+                
+        print(request.POST)
+
+        return redirect('order-summary')
