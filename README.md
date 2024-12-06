@@ -88,6 +88,8 @@ To ensure smooth functionality, set up the following environment variables:
 
 ### Payment Gateway
 Payment gateway credentials (if applicable)
+- `RZP_KEY_ID`: Razorpay key id
+- `RZP_KEY_SECRET`: Razorpay secret key
 
 ### Mobile OTP Verification (Twilio)
 
@@ -98,6 +100,10 @@ Payment gateway credentials (if applicable)
 - `AUTH_TOKEN`: Twilio authentication token (alternate for OTP)
 - `TWILIO_FROM_NUMBER`: Twilio phone number (provided by twilio)
 - `TO_NUMBER`: Destination phone number for testing.
+
+### Email OTP Verification (Gmail)
+
+- `EMAIL_HOST_PASSWORD`: Email host password of "from" account
 
 You can store these in a `.env` file for convenience.
 
