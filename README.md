@@ -83,8 +83,6 @@ To ensure smooth functionality, set up the following environment variables:
 - `SECRET_KEY`: Your Django secret key
 - `DEBUG`: Set to True for development, False for production
 - `DATABASE_URL`: Database connection string (default is SQLite)
-- `TWILIO_FROM_NUMBER`: Twilio phone number(Provided by twilio)
-- `TO_NUMBER`: Destination phone number for testing
 
 ### Payment Gateway
 Payment gateway credentials (if applicable)
