@@ -393,7 +393,10 @@ class PlaceOrderView(View):
 
                 data = { "amount": amount, "currency": "INR", "receipt": "order_rcptid_11" }
                 
-                payment = client.order.create(data=data)
+                try:
+                    payment = client.order.create(data=data)
+                except:
+                    return redirect('order_summary')
                 
                 rzp_order_id = payment.get('id')
                 
@@ -430,7 +433,7 @@ class OrderSummaryView(View):
         return render(request, self.template_name, {'orders': qs})
     
 
-@method_decorator([login_required, never_cache, csrf_exempt], name='dispatch')   
+@method_decorator([ never_cache, csrf_exempt], name='dispatch')   
 class PaymentVerificationView(View):
     
     def post(self, request, *args, **kwargs):
@@ -447,7 +450,7 @@ class PaymentVerificationView(View):
             order_object.save()
             
             # User session may end due to using csrf_exempt. So login again to avoid authentication issue.
-            login(request, order_object.customer)
+            # login(request, order_object.customer)
             
         except:
             print('payment failed')
