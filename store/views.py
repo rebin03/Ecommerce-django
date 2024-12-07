@@ -11,6 +11,8 @@ from decouple import config
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 
 RZP_KEY_ID = config('RZP_KEY_ID')
@@ -40,6 +42,8 @@ def send_otp_email(user):
     to_email = [user.email]
     
     send_mail(subject, message, from_email, to_email)
+
+decorators = [login_required, never_cache]
 
 
 class SignUpView(View):
@@ -79,7 +83,7 @@ class SignUpView(View):
         
         return render(request, self.template_name, context)
         
-        
+   
 class VerifyEmailView(View):
 
     template_name = 'verify_email.html'
@@ -141,7 +145,7 @@ class SignInView(View):
             
         return render(request, self.template_name, {'form':form})
     
-
+@method_decorator(decorators, name='dispatch')
 class SignOutView(View):
     
     def get(self, request, *args, **kwargs):
@@ -150,7 +154,7 @@ class SignOutView(View):
         
         return redirect('product-list')
     
-
+@method_decorator(never_cache, name='dispatch')
 class ProductListView(View):
     
     template_name = 'index.html'
@@ -185,7 +189,7 @@ class ProductListView(View):
         
         return render(request, self.template_name, context)
     
-    
+@method_decorator(never_cache, name='dispatch')  
 class ProductDetailView(View):
     
     template_name = 'product_detail.html'
@@ -201,7 +205,7 @@ class ProductDetailView(View):
 
         return render(request, self.template_name, context)
     
-    
+  
 class ContactView(View):
     
     template_name = 'contacts.html'
@@ -210,7 +214,7 @@ class ContactView(View):
         
         return render(request, self.template_name)
     
-    
+@method_decorator(never_cache, name='dispatch')  
 class AddToCartView(View):
     
     template_name = 'product_detail.html'
@@ -256,7 +260,7 @@ class AddToCartView(View):
         messages.info(request, 'Login or Register for add product to cart')
         return render(request, self.template_name, {'product':product_obj})
         
-        
+method_decorator(decorators, name='dispatch')       
 class CartSummaryView(View):
     
     template_name = 'cart_summary.html'
@@ -277,7 +281,7 @@ class CartSummaryView(View):
 
         return render(request, self.template_name, context)
     
-    
+method_decorator(decorators, name='dispatch')   
 class CartItemDeleteView(View):
     
     
@@ -288,7 +292,7 @@ class CartItemDeleteView(View):
         
         return redirect('cart-summary')
 
-
+method_decorator(never_cache, name='dispatch')
 class WishListView(View):
     
     template_name = 'wishlist.html'
@@ -303,7 +307,7 @@ class WishListView(View):
         
         return render(request, self.template_name, context)
     
-
+method_decorator(decorators, name='dispatch')
 class AddToWishlist(View):
     
     def get(self, request, *args, **kwargs):
@@ -320,7 +324,7 @@ class AddToWishlist(View):
         
         return redirect('product-list')
     
-
+method_decorator(decorators, name='dispatch')
 class WishListItemDelete(View):
     
     def get(self, request, *args, **kwargs):
@@ -330,7 +334,7 @@ class WishListItemDelete(View):
         
         return redirect('wishlist')
     
-    
+@method_decorator(decorators, name='dispatch')   
 class PlaceOrderView(View):
     
     template_name = 'place_order.html'
@@ -414,7 +418,7 @@ class PlaceOrderView(View):
             
             return redirect('order-summary')
         
-
+@method_decorator(decorators, name='dispatch')
 class OrderSummaryView(View):
     
     template_name = 'order_summary.html'
@@ -426,7 +430,7 @@ class OrderSummaryView(View):
         return render(request, self.template_name, {'orders': qs})
     
 
-@method_decorator(csrf_exempt, name='dispatch')   
+@method_decorator([login_required, never_cache, csrf_exempt], name='dispatch')   
 class PaymentVerificationView(View):
     
     def post(self, request, *args, **kwargs):

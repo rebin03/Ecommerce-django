@@ -9,7 +9,7 @@ class User(AbstractUser):
     
     is_verified = models.BooleanField(default=False)
     otp = models.CharField(max_length=50, null=True, blank=True)
-    phone = models.CharField(max_length=10, null=True)
+    phone = models.CharField(max_length=10, null=True, unique=True)
     
     def generate_otp(self):
         
